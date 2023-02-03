@@ -1,0 +1,221 @@
+openapi: 3.0.0
+info:
+  title: Pharmacy API
+  description: "Tasting API Development By Mahmoud Hamdi"
+  contact: {}
+  version: '1.0'
+servers:
+- url:  http://localhost:1812/api/v1  
+paths:
+  /auth/register:
+    post:
+      tags:
+      - Authentication
+      summary: Register User
+      operationId: RegisterUser
+      parameters: 
+        - name: pharmacy_name
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: Email
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: Password
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /auth/login:
+    post:
+      tags:
+      - Authentication
+      summary: Login
+      operationId: Login
+      parameters:
+        - name: Email
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: Password
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /auth/changePassword:
+    patch:
+      tags:
+      - Authentication
+      summary: Change Password
+      operationId: Change Password
+      parameters:
+        - name: currentPassword
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: newPassword
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /product/getAllProducts:
+    get:
+      tags:
+      - Products
+      summary: Get All Products
+      operationId: getAllProducts
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /product/getMyProducts:
+    get:
+      tags:
+      - Products
+      summary: Get My Products
+      operationId: GetMyProducts
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /product/getMyFavourite:
+    get:
+      tags:
+      - Products
+      summary: Get My Favourite Products
+      operationId: GetMyFavouriteProducts
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /product/createProduct:
+    post:
+      tags:
+      - Products
+      summary: Create Product or Products
+      operationId: CreateProduct
+      requestBody:
+        description: 'Set Product'
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateProduct'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /product/getCard:
+    get:
+      tags:
+      - Products
+      summary: Get Quantity For Update
+      operationId: GetCard
+      parameters: 
+        - name: ID
+          in: query
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+  /product/addToCrad:
+    patch:
+      tags:
+      - Products
+      summary: Add To Card
+      operationId: addToCard
+      parameters: 
+        - name: ID
+          in: query
+          schema:
+            type: string
+          required: true
+        - name: newQuantity
+          in: query
+          schema:
+            type: number
+          required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security:
+      - bearer: []
+components:
+  schemas:
+    CreateProduct:
+      title: RegisterUserRequest
+      required:
+      - drug_name
+      - expiry_date
+      - price
+      - town
+      type: object
+      properties:
+        drug_name:
+          type: string
+        expiry_date:
+          type: string
+        price:
+          type: number
+      example:
+        drug_name: AB
+        price : 200
+        town: egpty
+        expiry_date: '2025/12/12'
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+security: []
+tags:
+- name: Authentication
+  description: 'About User Authentication'
+- name: Products
+  description: 'Operations About Products'
