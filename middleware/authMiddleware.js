@@ -5,7 +5,7 @@ const authenticatedMiddleware = async (req, res, next) => {
     const authHeader = req.headers.authorization;
 
     if (!authHeader || !authHeader.startsWith('Bearer '))
-        throw new UnauthenticatedError('Not Token Provided')
+        throw new UnauthenticatedError('Not Bearer Token Provided')
     
     const token = authHeader.split(' ')[1];
     try {
