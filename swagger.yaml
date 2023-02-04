@@ -5,8 +5,8 @@ info:
   contact: {}
   version: '1.0'
 servers:
+- url:  https://pharmacy-api.onrender.com/api/v1 
 - url:  http://localhost:1812/api/v1
-- url: https://pharmacy-api.onrender.com/api/v1 
 paths:
   /auth/register:
     post:
