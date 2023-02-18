@@ -5,7 +5,10 @@ const prodectSchame = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
     },
-    app_pic: String,
+    app_pic: {
+        type: String,
+        default:""
+    },
     favourite: {
         type: Boolean,
         default: false,
