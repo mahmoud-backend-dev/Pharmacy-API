@@ -30,7 +30,7 @@ const createProduct = async (req, res) => {
     req.body.createBy = req.user.pharmacyId;
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
     if (!req.body.expiry_date)
-        throw new BadRequest("Please provide expiry data")
+        throw new BadRequest("Please provide expiry date")
     req.body.expiry_date = new Date(req.body.expiry_date).toLocaleDateString("en-US", options);
     const newProduct = await Product.create(req.body);
     res.status(StatusCodes.CREATED).json({ newProduct });
