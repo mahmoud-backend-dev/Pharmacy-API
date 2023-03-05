@@ -7,7 +7,7 @@ const prodectSchame = new mongoose.Schema({
     },
     add_pic: {
         type: String,
-        required:true
+        required: true
     },
     favourite: {
         type: Boolean,
