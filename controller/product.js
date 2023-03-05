@@ -29,7 +29,6 @@ const getMyFavourite = async (req, res) => {
 const createProduct = async (req, res) => {
     req.body.createBy = req.user.pharmacyId;
     req.body.add_pic = req.secure_url;
-    console.log(req.body.add_pic);
     const newProduct = await Product.create(req.body);
     res.status(StatusCodes.CREATED).json({ newProduct });
 }

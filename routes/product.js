@@ -18,7 +18,7 @@ router.route('/getMyProducts').get(getMyProducts);
 router.route('/getMyFavourite').get(getMyFavourite);
 router.route('/createProduct').post(uploadToLocal,
     (req, res, next) => {
-        if (!req.file)
+        if (!req.file) 
             throw new BadRequest('Please provided image for drug and content type must be multipart/form-data')
         next();
     },createProductValidator,
