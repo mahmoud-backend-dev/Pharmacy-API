@@ -132,12 +132,23 @@ paths:
       summary: Create Product or Products
       operationId: CreateProduct
       requestBody:
-        description: 'Set Product'
         required: true
         content:
-          application/json:
+          multipart/form-data:
             schema:
-              $ref: '#/components/schemas/CreateProduct'
+              type: object
+              properties:
+                add_pic:
+                  type: string
+                  format: binary
+                drug_name:
+                  type: string
+                town:
+                  type: string
+                price:
+                  type: integer
+                expiry_date:
+                  type: string
       responses:
         '200':
           description: ''
@@ -189,27 +200,6 @@ paths:
       security:
       - bearer: []
 components:
-  schemas:
-    CreateProduct:
-      title: RegisterUserRequest
-      required:
-      - drug_name
-      - expiry_date
-      - price
-      - town
-      type: object
-      properties:
-        drug_name:
-          type: string
-        expiry_date:
-          type: string
-        price:
-          type: number
-      example:
-        drug_name: AB
-        price : 200
-        town: egpty
-        expiry_date: '2025/12/12'
   securitySchemes:
     bearer:
       type: http
