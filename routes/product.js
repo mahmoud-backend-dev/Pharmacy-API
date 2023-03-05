@@ -16,12 +16,12 @@ const router = require('express').Router();
 router.route('/getAllProducts').get(getAllProducts);
 router.route('/getMyProducts').get(getMyProducts);
 router.route('/getMyFavourite').get(getMyFavourite);
-router.route('/createProduct').post(createProductValidator,uploadToLocal,
+router.route('/createProduct').post(uploadToLocal,
     (req, res, next) => {
         if (!req.file)
             throw new BadRequest('Please provided image for drug and content type must be multipart/form-data')
         next();
-    },
+    },createProductValidator,
     async (req, res, next) => {
         const uploadedInfo = await uploadToCloudinary(req.file.path);
         req.secure_url = uploadedInfo.secure_url;

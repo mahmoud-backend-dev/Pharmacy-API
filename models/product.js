@@ -5,7 +5,7 @@ const prodectSchame = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
     },
-    app_pic: {
+    add_pic: {
         type: String,
         default:""
     },
