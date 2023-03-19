@@ -30,7 +30,11 @@ const  changePassword = async (req, res) => {
     const isPasswordCorrect = await user.comparePassword(currentPassword);
     if (!isPasswordCorrect)
         throw new UnauthenticatedError('Password not correct');
-    const newUser = await User.findByIdAndUpdate({ _id:pharmacyId }, { Password: newPassword }, { new: true });
+    const newUser = await User.findByIdAndUpdate(
+        pharmacyId,
+        { Password: newPassword, passwordChangeAt: Date.now() },
+        { new: true }
+    );
     await newUser.save();
     res.status(StatusCodes.OK).json({ currentPassword, newPassword });
 };

@@ -1,6 +1,6 @@
 const { validationResult } = require('express-validator');
 
-const validatorMiddleWare = (req, res,next) => {
+exports.validatorMiddleWare = (req, res,next) => {
     // Finds the validation errors in this request and wraps them in an object with handy functions
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -9,4 +9,3 @@ const validatorMiddleWare = (req, res,next) => {
     next()
 };
 
-module.exports = validatorMiddleWare;

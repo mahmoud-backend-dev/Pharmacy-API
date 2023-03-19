@@ -5,6 +5,10 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 1812;
 
+const compression = require('compression');
+const mongoSanitize = require('express-mongo-sanitize');
+const hpp = require('hpp');
+
 // extra security package
 const cors = require('cors');
 const helmet = require('helmet');
@@ -30,26 +34,38 @@ const notFoundError = require('./middleware/notFoundMiddleware');
 // middleware for authentication bearer token
 const authMiddleware = require('./middleware/authMiddleware');
 
+/// Enable other domains to access your application
+app.use(cors());
+app.options('*', cors());
+
+// Compress all responses
+app.use(compression());
+
 // middleware use to body parser
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// to push app to heroku
-app.set('trust proxy', 1);
+// To remove data using these defaults, To apply data sanitization
+// nosql mongo injection
+app.use(mongoSanitize());
 
+app.use(helmet());
+// To sanitize user input coming from POST body, GET queries, and url params  ex: '<script></script>' to convert string ''&lt;script>&lt;/script>''
+app.use(xss());
 // default security 
 app.use(expressLimiter(
     {
         windowMs: 15 * 60 * 1000, // 15 minutes
         max: 100, // Limit each IP to 100 requests per `window` (here, per 15 minutes)
-        standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
-        legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+        message:
+		'Too many accounts created from this IP, please try again after an 15 minutes',
     }
 ));
-app.use(cors());
-app.use(helmet());
-app.use(xss());
 
+
+
+// Express middleware to protect against HTTP Parameter Pollution attacks
+app.use(hpp());
 
 
 // for Swagger Ui StartUp an running live server
@@ -62,6 +78,8 @@ app.use('/api/v1/product', authMiddleware, productRoute);
 
 // middleware errorhandler
 app.use(errorHandler);
+
+// MiddleWare Not found page
 app.use(notFoundError);
 
 // run server
