@@ -12,7 +12,7 @@ exports.signupValidator = [
       return true;
     }),
   check('Password').notEmpty().withMessage('Password required')
-    .isLength({ min: 6 }).withMessage('Pasword greater than 6 '),
+    .isLength({ min: 6 }).withMessage('Password must be at least 6 characters '),
   validatorMiddleWare,
 ];
 
@@ -20,14 +20,14 @@ exports.loginValidator = [
   check('Email').notEmpty().withMessage('E-mail required')
   .isEmail().withMessage('E-mail invalid'),
 check('Password').notEmpty().withMessage('Password required')
-  .isLength({ min: 6 }).withMessage('Pasword greater than 6 '),
+  .isLength({ min: 6 }).withMessage('Password must be at least 6 characters '),
 validatorMiddleWare,
 ]
 
 exports.changePasswordValidator = [
   check('currentPassword').notEmpty().withMessage('currentPassword field required'),
   check('newPassword').notEmpty().withMessage('newPassword field required')
-    .isLength({ min: 6 }).withMessage('newPassword greater than 6 '),
+    .isLength({ min: 6 }).withMessage('Password must be at least 6 characters '),
   validatorMiddleWare,
 ];
 
