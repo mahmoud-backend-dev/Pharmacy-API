@@ -10,7 +10,11 @@ const uploadToLocal = require('../controller/multer');
 const fs = require('fs');
 const uploadToCloudinary = require('../controller/cloudinary');
 const { BadRequest } = require('../errors');
-const { createProductValidator } = require('../utils/productValidator');
+const {
+    createProductValidator,
+    addToCartValidator,
+    getCartValidator,
+} = require('../validators/productValidator');
 const router = require('express').Router();
 
 router.route('/getAllProducts').get(getAllProducts);
@@ -29,8 +33,16 @@ router.route('/createProduct').post(uploadToLocal,
         next();
     },
     createProduct);
-router.route('/getCard').get(fromCard);
-router.route('/addToCrad').patch(addToCrad);
+router.route('/getCard')
+    .get(
+        getCartValidator,
+        fromCard
+    );
+router.route('/addToCrad')
+    .patch(
+        addToCartValidator,
+        addToCrad
+    );
 
 
 
