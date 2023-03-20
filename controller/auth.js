@@ -1,13 +1,18 @@
 const User = require('../models/user');
 const { StatusCodes } = require('http-status-codes');
-const {BadRequest,UnauthenticatedError, NotFoundError}= require('../errors');
-const postSingnUp = async (req, res) => {
+const {
+    UnauthenticatedError,
+    NotFoundError
+} = require('../errors');
+const asyncHandler = require('express-async-handler');
+
+const postSingnUp = asyncHandler(async (req, res) => {
     const user = await User.create( req.query );
     const token = user.createJWT();
     res.status(StatusCodes.CREATED).json({ pharmacy_name: user.pharmacy_name, token, });
-};
+});
 
-const login = async (req, res) => {
+const login = asyncHandler(async (req, res) => {
     const { Email, Password } = req.query;
     const user = await User.findOne({ Email });
     if (!Email || !Password)
@@ -21,9 +26,9 @@ const login = async (req, res) => {
     const token = user.createJWT();
     res.status(StatusCodes.OK).json({ pharmacy_name: user.pharmacy_name, token, });
 
-};
+});
 
-const  changePassword = async (req, res) => {
+const  changePassword =asyncHandler (async (req, res) => {
     const { currentPassword, newPassword } = req.query;
     const { pharmacyId } = req.user;
     const user = await User.findById(pharmacyId);
@@ -37,7 +42,7 @@ const  changePassword = async (req, res) => {
     );
     await newUser.save();
     res.status(StatusCodes.OK).json({ currentPassword, newPassword });
-};
+});
 
 module.exports = {
     postSingnUp,
