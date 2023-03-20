@@ -6,7 +6,6 @@ exports.createProductValidator = [
     .isNumeric().withMessage('Please provide numeric value'),
     check('town').notEmpty().withMessage('Please provide town'),
     check('expiry_date').notEmpty().withMessage('Please provide expiry date'),
-    check('add_pic').notEmpty().withMessage('add_pic field required'),
     validatorMiddleWare,
 ]
 

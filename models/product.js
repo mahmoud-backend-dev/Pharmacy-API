@@ -18,7 +18,7 @@ const prodectSchame = new mongoose.Schema({
         required: [true, 'Please provide drug name'],
     },
     expiry_date: {
-        type: String,
+        type: Date,
         required: [true, 'Please provide expiry date'],
     },
     price: {

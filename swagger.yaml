@@ -149,6 +149,7 @@ paths:
                   type: integer
                 expiry_date:
                   type: string
+                  format: date
       responses:
         '200':
           description: ''
