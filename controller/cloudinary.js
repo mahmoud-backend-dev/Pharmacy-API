@@ -1,5 +1,6 @@
 const cloudinary = require('cloudinary').v2;
-
+const fs = require('fs');
+const asyncHandler = require('express-async-handler');
 // Configuration  Cloudinary
 cloudinary.config({
     cloud_name: process.env.CLOUD_NAME,
@@ -9,9 +10,12 @@ cloudinary.config({
 
 
 // Upload to cloudianry
-const uploadToCloudianry = async (path) => {
-    const data = await cloudinary.uploader.upload(path, { folder: 'Product_Pharmacy' });
-    return data;
-};
+const uploadToCloudianry = asyncHandler(async (req, res, next) => {
+    const data = await cloudinary.uploader.upload(req.file.path, { folder: 'Product_Pharmacy' });
+    req.secure_url = data.secure_url;
+    fs.unlinkSync(req.file.path);
+    next();
+});
 
-module.exports = uploadToCloudianry;
+module.exports = uploadToCloudianry
+
