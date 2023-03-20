@@ -18,6 +18,14 @@ const errorHandlerMiddleware = (err, req, res,next) => {
     if (err.name === 'CastError') {
         customError.msg = `No Item found with id ${err.value}`;
         customError.statusCode = StatusCodes.NOT_FOUND;
+    };
+    if (err.name === 'JsonWebTokenError') {
+        customError.msg = `Invalid token, please login again...`;
+        customError.statusCode = StatusCodes.UNAUTHORIZED;
+    }
+    if (err.name === 'TokenExpiredError') {
+        customError.msg = `Expired token, please login again...`;
+        customError.statusCode = StatusCodes.UNAUTHORIZED;
     }
     res.status(customError.statusCode).json({ msg: customError.msg });
 };
