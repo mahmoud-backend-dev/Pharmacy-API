@@ -31,7 +31,7 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        '201':
           description: ''
           headers: {}
       deprecated: false
@@ -54,7 +54,7 @@ paths:
           schema:
             type: string
       responses:
-        '200':
+        '201':
           description: ''
           headers: {}
       deprecated: false
@@ -151,7 +151,7 @@ paths:
                   type: string
                   format: date
       responses:
-        '200':
+        '201':
           description: ''
           headers: {}
       deprecated: false

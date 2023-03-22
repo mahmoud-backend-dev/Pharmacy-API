@@ -1,4 +1,5 @@
 const multer = require('multer');
+const {BadRequest}= require('../errors')
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -10,4 +11,10 @@ const storage = multer.diskStorage({
     }
 });
 
-module.exports = multer({ storage }).single('add_pic');
+const fileFilter = async (req, file, cb) => {
+    if (file.mimetype.startsWith("image"))
+        cb(null, true)
+    else
+        cb(new BadRequest("Only Images allowed"), false);
+};
+module.exports = multer({ storage, fileFilter }).single('add_pic');
