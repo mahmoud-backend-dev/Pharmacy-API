@@ -17,7 +17,10 @@ const userSchame = new mongoose.Schema({
         required: [true, 'Please provide email'],
         unique: true,
     },
-    passwordChangeAt: Date,
+    passwordChangeAt: {
+        type: Date,
+        default: undefined,
+    },
 });
 
 userSchame.pre('save', async function () {
