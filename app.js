@@ -5,8 +5,6 @@ const express = require('express');
 const app = express();
 const port = process.env.PORT || 1812;
 
-const multer = require('multer');
-const upload = multer();
 
 const compression = require('compression');
 const mongoSanitize = require('express-mongo-sanitize');
@@ -36,6 +34,7 @@ const notFoundError = require('./middleware/notFoundMiddleware');
 
 // middleware for authentication bearer token
 const authMiddleware = require('./middleware/authMiddleware');
+
 
 /// Enable other domains to access your application
 app.use(cors());

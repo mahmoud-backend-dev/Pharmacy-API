@@ -10,8 +10,10 @@ exports.createProductValidator = [
         .isDate().withMessage("Invalid Date , enter valid date format as 'YYYY-MM-DD' or 'YYYY/MM/DD' "),
     check('add_pic')
         .custom(async (val, { req }) => {
-            if (!req.file)
-                throw new BadRequest('Please provided image for drug and content type must be multipart/form-data')
+            if (!req.file) {
+                console.log("test");
+                throw new BadRequest('Please provided image for drug and encrypte type must be multipart/form-data')
+            }
             return true;
         }),
     validatorMiddleWare,
